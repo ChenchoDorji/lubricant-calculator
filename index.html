@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lubricant / Water Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 6px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Lubricant / Water Calculator</h2>
+
+  <label>
+    Quantity of Lubricant (x)
+    <input type="number" id="x" step="any" value="10">
+  </label>
+
+  <label>
+    Percentage of Lubricant (p, decimal)
+    <input type="number" id="p" step="any" value="0.2">
+  </label>
+
+  <div class="result">
+    Quantity of Water (w): <span id="w">0</span>
+  </div>
+
+  <script>
+    const xInput = document.getElementById("x");
+    const pInput = document.getElementById("p");
+    const wOutput = document.getElementById("w");
+
+    function calculateWater() {
+      const x = parseFloat(xInput.value);
+      const p = parseFloat(pInput.value);
+
+      if (p > 0 && p < 1 && !isNaN(x)) {
+        const w = x * (1 - p) / p;
+        wOutput.textContent = w.toFixed(4);
+      } else {
+        wOutput.textContent = "Invalid p";
+      }
+    }
+
+    xInput.addEventListener("input", calculateWater);
+    pInput.addEventListener("input", calculateWater);
+
+    calculateWater();
+  </script>
+
+</body>
+</html>
