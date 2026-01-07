@@ -3,83 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <title>Lubricant / Water Calculator</title>
-
   <style>
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(135deg, #e3f2fd, #f9f9f9);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
     }
-
-    .card {
-      background: white;
-      padding: 25px 30px;
-      width: 100%;
-      max-width: 420px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #1565c0;
-    }
-
     label {
       display: block;
       margin-top: 15px;
-      font-weight: bold;
-      color: #333;
     }
-
     input {
       width: 100%;
-      padding: 10px;
-      margin-top: 6px;
+      padding: 6px;
       font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      transition: border-color 0.2s, box-shadow 0.2s;
     }
-
-    input:focus {
-      outline: none;
-      border-color: #1976d2;
-      box-shadow: 0 0 5px rgba(25, 118, 210, 0.4);
-    }
-
     .result {
-      margin-top: 25px;
-      padding: 15px;
-      border-radius: 8px;
-      background: #e3f2fd;
-      text-align: center;
-      font-size: 18px;
+      margin-top: 20px;
       font-weight: bold;
-      color: #0d47a1;
-    }
-
-    .error {
-      background: #ffebee;
-      color: #b71c1c;
-    }
-
-    .footer {
-      margin-top: 15px;
-      text-align: center;
-      font-size: 13px;
-      color: #666;
+      font-size: 18px;
     }
   </style>
 </head>
-
 <body>
 
-  <div class="card">
-    <h2>Lubricant / Water Calculator</h2>
+  <h2>Lubricant / Water Calculator</h2>
 
-    <label>
+  <label>
+    Quantity of Lubricant (x)
+    <input type="number" id="x" step="any" value="10">
+  </label>
+
+  <label>
+    Percentage of Lubricant (p, decimal)
+    <input type="number" id="p" step="any" value="0.2">
+  </label>
+
+  <div class="result">
+    Quantity of Water (w): <span id="w">0</span>
+  </div>
+
+  <script>
+    const xInput = document.getElementById("x");
+    const pInput = document.getElementById("p");
+    const wOutput = document.getElementById("w");
+
+    function calculateWater() {
+      const x = parseFloat(xInput.value);
+      const p = parseFloat(pInput.value);
+
+      if (p > 0 && p < 1 && !isNaN(x)) {
+        const w = x * (1 - p) / p;
+        wOutput.textContent = w.toFixed(4);
+      } else {
+        wOutput.textContent = "Invalid p";
+      }
+    }
+
+    xInput.addEventListener("input", calculateWater);
+    pInput.addEventListener("input", calculateWater);
+
+    calculateWater();
+  </script>
+
+</body>
+</html>
